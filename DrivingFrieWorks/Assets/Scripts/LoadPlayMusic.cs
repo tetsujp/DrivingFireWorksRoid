@@ -52,9 +52,9 @@ public class LoadPlayMusic : MonoBehaviour
             for (var i = 0; i < Global.MAX_LINE; i++)
             {
                 /*tempLoadList[i] = (LineNote)Instantiate(prefabLineNote);*/
-                GameObject obj = (GameObject)Instantiate(prefabLineNote);
-                obj.GetComponent<LineNote>().lineName = (LineName)i;
-                tempLoadList[i] = obj.GetComponent<LineNote>();
+                LineNote obj = ((GameObject)Instantiate(prefabLineNote)).GetComponent<LineNote>();
+                obj.lineName = (LineName)i;
+                tempLoadList[i] = obj;
             }
 
             while (!readEndFlag)

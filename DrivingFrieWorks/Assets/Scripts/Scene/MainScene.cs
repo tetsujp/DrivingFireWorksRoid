@@ -8,7 +8,7 @@ public class MainScene : BasicScene
     //曲データ
     //ノートデータ
     public GameObject prefabNoteOwner;
-    GameObject noteOwner;
+    NoteOwner noteOwner;
     GameObject scoreManager;
     public GameObject prefabStart;
     //Transform score;
@@ -18,7 +18,7 @@ public class MainScene : BasicScene
 	}
     override public void Initialize()
     {
-        noteOwner=(GameObject)Instantiate(prefabNoteOwner);
+        noteOwner=((GameObject)Instantiate(prefabNoteOwner)).GetComponent<NoteOwner>();
         //scoreManager = GameObject.FindGameObjectWithTag("ScoreManager");
         //score = transform.FindChild("Canvas").transform.FindChild("Score");
         //Instantiate(prefabStart);
@@ -33,9 +33,9 @@ public class MainScene : BasicScene
 	void Update () {
 
         //曲の終了
-        if (noteOwner.GetComponent<NoteOwner>().IsEnd())
+        if (noteOwner.IsEnd())
         {
-            noteOwner.GetComponent<NoteOwner>().FinalizeObj();
+            noteOwner.FinalizeObj();
             ChangeScene(SceneName.Result);
         }
         //if (Input.GetButtonDown("Stop"))
@@ -49,7 +49,7 @@ public class MainScene : BasicScene
     {
         if (Input.GetButtonDown("Stop"))
         {
-            noteOwner.GetComponent<NoteOwner>().FinalizeObj();
+            noteOwner.FinalizeObj();
             ChangeScene(SceneName.Result);
         }
     }

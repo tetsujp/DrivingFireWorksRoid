@@ -20,6 +20,10 @@ public class SelectScene :  BasicScene
     int playCounter = 0;
     int MaxMusicNumber=-1;
 
+    //void Start()
+    //{
+        //StartCoroutine("Load");
+    //}
 
     void Start()
     {
@@ -27,25 +31,39 @@ public class SelectScene :  BasicScene
 
 
         //フォルダ列挙
-        string folderPath = string.Format("{0}/Music", Application.dataPath);
-        string[] allFolderPath = System.IO.Directory.GetDirectories(folderPath, "*");
-        if (allFolderPath.Length==0)
-        {
-            Debug.Log("フォルダが見つかりません");
-            return;
-        }
+        //string filePath = string.Format(Application.dataPath);
+        string filePath = System.IO.Path.Combine("file:///"+Application.streamingAssetsPath+"/","CIRCLECHANGE/info.txt");
+        //string folderPath = "jar:file://" + Application.dataPath + "!/assets/";
+        //var filePath = System.IO.Path.Combine(Application.streamingAssetsPath,"");
+        //filePath += "/aa/CIRCLECHANGE";
+        Debug.Log(filePath);
+        //string[] allFolderPath = System.IO.Directory.GetDirectories(folderPath, "*");
+        //if (allFolderPath.Length==0)
+        //{
+        //    Debug.Log("フォルダが見つかりません");
+        //    //return;
+        //}
         //曲取得
-        for (var i = 0; i < allFolderPath.Length;i++ )
+        Debug.Log("load all folder");
+        //for (var i = 0; i < allFolderPath.Length;i++ )
+        //{
+            Debug.Log("load");
+            //var path = filePath+"/info.txt";
+            //Debug.Log(path);
+            WWW f = new WWW(filePath);
+            //yield return f;
+            while (!f.isDone) { }
+            Debug.Log(f.text);
+            //using(FileStream f = new FileStream(allFolderPath[i] + "/info.txt", FileMode.Open, FileAccess.Read))
+            //using (StreamReader reader = new StreamReader(f))
+        using(StringReader reader = new StringReader(f.text))    
         {
-
-            using(FileStream f = new FileStream(allFolderPath[i] + "/info.txt", FileMode.Open, FileAccess.Read))
-            using (StreamReader reader = new StreamReader(f))
-            {
+                Debug.Log("load2");
                 //読み込み失敗
                 if (reader == null)
                 {
                     Debug.Log("ファイルが見つかりません");
-                    return;
+                    //return;
                 }
                 string loopBuf;
 
@@ -54,7 +72,7 @@ public class SelectScene :  BasicScene
 
                 while ((loopBuf = reader.ReadLine()) != null)
                 {
-
+                    Debug.Log("load3");
                     //名前取得
                     if (loopBuf == "FILENAME")
                     {
@@ -97,11 +115,12 @@ public class SelectScene :  BasicScene
 
                 var select = (GameObject)Instantiate(selectBar);
                 var script = select.GetComponent<SelectBar>();
-                script.Initialize(i, d);
+                script.Initialize(0, d);
                 selectBarList.Add(script);
                 MaxMusicNumber++;
             }
-        }
+        //}
+        Debug.Log("load4");
         playState = GameObject.FindGameObjectWithTag("PlayState").GetComponent<PlayState>();
         stateCanvas = GameObject.FindGameObjectWithTag("StateCanvas");
         selectCanvas = GameObject.FindGameObjectWithTag("SelectCanvas");
