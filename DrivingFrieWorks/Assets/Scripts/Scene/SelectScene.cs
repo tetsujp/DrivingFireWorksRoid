@@ -58,7 +58,6 @@ public class SelectScene :  BasicScene
             //using (StreamReader reader = new StreamReader(f))
         using(StringReader reader = new StringReader(f.text))    
         {
-                Debug.Log("load2");
                 //読み込み失敗
                 if (reader == null)
                 {
@@ -72,7 +71,7 @@ public class SelectScene :  BasicScene
 
                 while ((loopBuf = reader.ReadLine()) != null)
                 {
-                    Debug.Log("load3");
+                    Debug.Log(loopBuf);
                     //名前取得
                     if (loopBuf == "FILENAME")
                     {

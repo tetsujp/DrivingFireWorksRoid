@@ -22,12 +22,12 @@ public class TitleScene :  BasicScene
 	// Update is called once per frame
 	void Update () {
 
-        //if (Input.GetButtonDown("Decide"))
-        //{
-        //    //曲選択画面へ
+        if (Input.GetButtonDown("Decide"))
+        {
+            //曲選択画面へ
 
-        //    ChangeScene(SceneName.Select);
-        //}
+            ChangeScene(SceneName.Select);
+        }
 	}
     void OnTouchDown(Touch touch)
     {
